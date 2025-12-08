@@ -1,3 +1,5 @@
+let ultimoCepBuscado = "";
+
 function buscarCep() {
     let cep = document.getElementById('cep').value.replace(/\D/g, "");
 
@@ -32,6 +34,4 @@ btnLupa.addEventListener("click", buscarCep);
 
 const cepInput = document.getElementById("cep");
 cepInput.addEventListener("blur", buscarCep);
-
-let ultimoCepBuscado = "";
-cepInput.addEventListener("input", buscarCep());
+cepInput.addEventListener("input", buscarCep);
