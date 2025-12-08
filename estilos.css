@@ -1,0 +1,23 @@
+.campo-cep {
+    position: relative;
+    width: 250px;
+}
+
+.campo-cep input {
+    width: 100%;
+    padding-right: 35px; /* espaço pra lupa */
+}
+
+.btn-lupa {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+}
+.btn-lupa:hover {
+    color: #007BFF; /* muda a cor ao passar o mouse */
+}
