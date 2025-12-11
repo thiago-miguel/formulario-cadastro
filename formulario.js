@@ -43,14 +43,55 @@ telInput.addEventListener("blur", () => {
 
     if (apenasNumeros.length !== 10 && apenasNumeros.length !== 11) {
         alert("Número de telefone inválido. Deve conter 10 ou 11 dígitos.");
+        telInput.classList.add("input-erro");
         telInput.value = "";
         localStorage.removeItem("telefone");
+        telInput.focus();
         return;
     }
 
-    telInput.value = apenasNumeros;
-    localStorage.setItem("telefone", telInput.value);
+    telInput.classList.remove("input-erro");
 });
+
+
+telInput.addEventListener("input", () => {
+    const valorMascarado = formatarTelefone(telInput.value);
+    telInput.value = valorMascarado;
+
+    localStorage.setItem("telefone", valorMascarado);
+});
+
+function formatarTelefone(valor) {
+    let numeros = valor.replace(/\D/g, "");
+
+    // Limita a 11 dígitos
+    numeros = numeros.slice(0, 11);
+
+    // Celular (11 dígitos)
+    if (numeros.length === 11) {
+        return numeros.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+    }
+
+    // Fixo (10 dígitos)
+    if (numeros.length === 10) {
+        return numeros.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+    }
+
+    // Parcial (usuário digitando)
+    if (numeros.length > 6) {
+        return numeros.replace(/(\d{2})(\d{4})(\d*)/, "($1) $2-$3");
+    }
+
+    if (numeros.length > 2) {
+        return numeros.replace(/(\d{2})(\d*)/, "($1) $2");
+    }
+
+    if (numeros.length > 0) {
+        return `(${numeros}`;
+    }
+
+    return "";
+}
 
 function calcularIdade(data) {
     const hoje = new Date();
