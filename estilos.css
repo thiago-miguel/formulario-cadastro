@@ -21,3 +21,8 @@
 #btn-lupa:hover {
     color: #007BFF; /* muda a cor ao passar o mouse */
 }
+
+.input-erro {
+    border: 2px solid red !important;
+    background-color: #ffecec;
+}

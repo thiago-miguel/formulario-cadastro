@@ -1,5 +1,6 @@
 let ultimoCepBuscado = "";
 
+// Persistência dos dados ao recarregar a página
 document.addEventListener("DOMContentLoaded", () => {
     const cepSalvo = localStorage.getItem("cep");
 
@@ -30,6 +31,7 @@ const camposEndereco = [
   "cep", "logradouro", "bairro", "cidade", "estado"
 ];
 
+// Mantém persistência dos dados conforme o usuário digita
 campos.forEach(id => {
   const input = document.getElementById(id);
   input.addEventListener("input", () => {
@@ -37,6 +39,7 @@ campos.forEach(id => {
   });
 });
 
+// Teletone
 const telInput = document.getElementById("telefone");
 telInput.addEventListener("blur", () => {
     const apenasNumeros = telInput.value.replace(/\D/g, "");
@@ -93,6 +96,7 @@ function formatarTelefone(valor) {
     return "";
 }
 
+// Idade e Data de Nascimento
 function calcularIdade(data) {
     const hoje = new Date();
     const nascimento = new Date(data);
@@ -118,19 +122,20 @@ function validarIdade() {
     const idadeCorreta = calcularIdade(data);
 
     if (idadeCorreta !== idade) {
-        alert(`A idade não confere. Fala a verdade!`);
+        marcarErro(idadeInput, "Idade errada. Ta mentindo pra mim?");
         idadeInput.value = "";
         localStorage.setItem("idade", "");
-        setTimeout(() => {
-            idadeInput.focus();
-            idadeInput.select();
-        }, 10);
+        setTimeout(() => idadeInput.focus(), 50);
+    } else {
+        limparErro(idadeInput);
     }
+
 }
 
 idadeInput.addEventListener("blur", validarIdade);
 dataInput.addEventListener("blur", validarIdade);
 
+//Endereço
 function buscarCep() {
     let cep = document.getElementById('cep').value.replace(/\D/g, "");
 
@@ -175,6 +180,7 @@ const cepInput = document.getElementById("cep");
 cepInput.addEventListener("blur", buscarCep);
 cepInput.addEventListener("input", buscarCep);
 
+// Botão limpar
 const btnLimpar = document.getElementById("btn-limpar");
 btnLimpar.addEventListener("click", () => {
     localStorage.clear();
@@ -184,4 +190,29 @@ btnLimpar.addEventListener("click", () => {
     camposEndereco.forEach(campo => {
     document.getElementById(campo).value = "";
     });
+    limparErro(idadeInput);
 });
+
+// Erros nos campos
+function marcarErro(campo, mensagem = "") {
+    campo.classList.add("input-erro");
+
+    const msg = campo.nextElementSibling;
+
+    if (msg && msg.classList.contains("erro-msg")) {
+        msg.textContent = mensagem;
+        msg.style.display = "block";
+    }
+}
+
+
+function limparErro(campo) {
+    campo.classList.remove("input-erro");
+
+    const msg = campo.nextElementSibling;
+
+    if (msg && msg.classList.contains("erro-msg")) {
+        msg.textContent = "";
+        msg.style.display = "none";
+    }
+}
