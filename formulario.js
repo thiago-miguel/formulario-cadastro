@@ -52,6 +52,44 @@ telInput.addEventListener("blur", () => {
     localStorage.setItem("telefone", telInput.value);
 });
 
+function calcularIdade(data) {
+    const hoje = new Date();
+    const nascimento = new Date(data);
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+    }
+    return idade;
+}
+
+const idadeInput = document.getElementById("idade");
+const dataInput = document.getElementById("data-nascimento");
+
+function validarIdade() {
+    const data = dataInput.value;
+    const idade = parseInt(idadeInput.value);
+
+    if (!data || !idade) return;
+
+    const idadeCorreta = calcularIdade(data);
+
+    if (idadeCorreta !== idade) {
+        alert(`A idade não confere. Fala a verdade!`);
+        idadeInput.value = "";
+        localStorage.setItem("idade", "");
+        setTimeout(() => {
+            idadeInput.focus();
+            idadeInput.select();
+        }, 10);
+    }
+}
+
+idadeInput.addEventListener("blur", validarIdade);
+dataInput.addEventListener("blur", validarIdade);
+
 function buscarCep() {
     let cep = document.getElementById('cep').value.replace(/\D/g, "");
 
