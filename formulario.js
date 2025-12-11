@@ -19,27 +19,31 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("data-nascimento").value = localStorage.getItem("data-nascimento") ?? "";
     document.getElementById("tamanho-calçado").value = localStorage.getItem("tamanho-calçado") ?? "";
     document.getElementById("comida-favorita").value = localStorage.getItem("comida-favorita") ?? "";
+    document.getElementById("numero").value = localStorage.getItem("numero") ?? "";
+    document.getElementById("complemento").value = localStorage.getItem("complemento") ?? "";
 
 });
 
-const campos = [
-  "nome", "email", "telefone", "idade",
-  "data-nascimento", "tamanho-calçado", "comida-favorita"
+const camposManuais = [
+  "nome", "email", "telefone", "idade", "data-nascimento",
+  "tamanho-calçado", "comida-favorita",
+  "numero", "complemento"
 ];
 
-const camposEndereco = [
+const camposViaCep = [
   "cep", "logradouro", "bairro", "cidade", "estado"
 ];
 
+
 // Mantém persistência dos dados conforme o usuário digita
-campos.forEach(id => {
+camposManuais.forEach(id => {
     const input = document.getElementById(id);
     input.addEventListener("input", debounce(() => {
         localStorage.setItem(id, input.value);
     }, 400));
 });
 
-// Teletone
+// Telefone
 const telInput = document.getElementById("telefone");
 telInput.addEventListener("blur", () => {
     const apenasNumeros = telInput.value.replace(/\D/g, "");
@@ -184,10 +188,10 @@ cepInput.addEventListener("blur", () => buscarCep(false));
 const btnLimpar = document.getElementById("btn-limpar");
 btnLimpar.addEventListener("click", () => {
     localStorage.clear();
-    campos.forEach(campo => {
+    camposManuais.forEach(campo => {
     document.getElementById(campo).value = "";
     });
-    camposEndereco.forEach(campo => {
+    camposViaCep.forEach(campo => {
     document.getElementById(campo).value = "";
     });
     limparErro(idadeInput);
