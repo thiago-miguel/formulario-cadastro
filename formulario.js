@@ -33,10 +33,10 @@ const camposEndereco = [
 
 // Mantém persistência dos dados conforme o usuário digita
 campos.forEach(id => {
-  const input = document.getElementById(id);
-  input.addEventListener("input", () => {
-    localStorage.setItem(id, input.value);
-  });
+    const input = document.getElementById(id);
+    input.addEventListener("input", debounce(() => {
+        localStorage.setItem(id, input.value);
+    }, 400));
 });
 
 // Teletone
@@ -215,4 +215,13 @@ function limparErro(campo) {
         msg.textContent = "";
         msg.style.display = "none";
     }
+}
+
+// Debounce
+function debounce(func, delay = 500) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
 }
