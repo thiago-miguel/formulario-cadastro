@@ -26,6 +26,10 @@ const campos = [
   "data-nascimento", "tamanho-calçado", "comida-favorita"
 ];
 
+const camposEndereco = [
+  "cep", "logradouro", "bairro", "cidade", "estado"
+];
+
 campos.forEach(id => {
   const input = document.getElementById(id);
   input.addEventListener("input", () => {
@@ -76,3 +80,14 @@ btnLupa.addEventListener("click", buscarCep);
 const cepInput = document.getElementById("cep");
 cepInput.addEventListener("blur", buscarCep);
 cepInput.addEventListener("input", buscarCep);
+
+const btnLimpar = document.getElementById("btn-limpar");
+btnLimpar.addEventListener("click", () => {
+    localStorage.clear();
+    campos.forEach(campo => {
+    document.getElementById(campo).value = "";
+    });
+    camposEndereco.forEach(campo => {
+    document.getElementById(campo).value = "";
+    });
+});
