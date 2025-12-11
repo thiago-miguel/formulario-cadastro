@@ -136,12 +136,12 @@ idadeInput.addEventListener("blur", validarIdade);
 dataInput.addEventListener("blur", validarIdade);
 
 //Endereço
-function buscarCep() {
+function buscarCep(force = false) {
     let cep = document.getElementById('cep').value.replace(/\D/g, "");
+    console.log("buscarCep chamado — cep:", cep, "ultimoCepBuscado:", ultimoCepBuscado, "force:", force);
 
-    if (cep.length !== 8 || cep === ultimoCepBuscado) {
-        return;
-    }
+    if (cep.length !== 8) return;
+    if (!force && cep === ultimoCepBuscado) return;
 
     ultimoCepBuscado = cep;
 
@@ -174,11 +174,11 @@ function buscarCep() {
 }
 
 const btnLupa = document.getElementById("btn-lupa");
-btnLupa.addEventListener("click", buscarCep);
+btnLupa.addEventListener("click", () => buscarCep(true));
 
 const cepInput = document.getElementById("cep");
-cepInput.addEventListener("blur", buscarCep);
-cepInput.addEventListener("input", buscarCep);
+cepInput.addEventListener("change", () => buscarCep(false));
+cepInput.addEventListener("blur", () => buscarCep(false));
 
 // Botão limpar
 const btnLimpar = document.getElementById("btn-limpar");
@@ -191,6 +191,7 @@ btnLimpar.addEventListener("click", () => {
     document.getElementById(campo).value = "";
     });
     limparErro(idadeInput);
+    ultimoCepBuscado = "";
 });
 
 // Erros nos campos
@@ -204,7 +205,6 @@ function marcarErro(campo, mensagem = "") {
         msg.style.display = "block";
     }
 }
-
 
 function limparErro(campo) {
     campo.classList.remove("input-erro");
