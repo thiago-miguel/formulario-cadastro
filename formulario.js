@@ -37,6 +37,21 @@ campos.forEach(id => {
   });
 });
 
+const telInput = document.getElementById("telefone");
+telInput.addEventListener("blur", () => {
+    const apenasNumeros = telInput.value.replace(/\D/g, "");
+
+    if (apenasNumeros.length !== 10 && apenasNumeros.length !== 11) {
+        alert("Número de telefone inválido. Deve conter 10 ou 11 dígitos.");
+        telInput.value = "";
+        localStorage.removeItem("telefone");
+        return;
+    }
+
+    telInput.value = apenasNumeros;
+    localStorage.setItem("telefone", telInput.value);
+});
+
 function buscarCep() {
     let cep = document.getElementById('cep').value.replace(/\D/g, "");
 
