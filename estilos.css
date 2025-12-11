@@ -1,28 +1,141 @@
+/* ====== Layout geral ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f4f7;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* ====== Card ====== */
+.container {
+    background: white;
+    padding: 30px 35px;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ====== Form groups ====== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ====== Inputs ====== */
+input, select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+/* ====== Campo CEP com lupa ====== */
 .campo-cep {
     position: relative;
-    width: 250px;
+    width: 100%;
 }
 
 .campo-cep input {
     width: 100%;
-    padding-right: 35px; /* espaço pra lupa */
+    padding-right: 40px;
 }
 
 #btn-lupa {
+    all: unset;
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     border: none;
     background: transparent;
     cursor: pointer;
-    font-size: 16px;
-}
-#btn-lupa:hover {
-    color: #007BFF; /* muda a cor ao passar o mouse */
+    font-size: 18px;
 }
 
+#btn-lupa:hover {
+    color: #007bff;
+}
+
+/* ====== Mensagens de erro ====== */
 .input-erro {
     border: 2px solid red !important;
-    background-color: #ffecec;
+    background-color: #ffeaea;
+}
+
+.erro-msg {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    color: red;
+}
+
+/* ====== Botões ====== */
+.botoes {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+button[type="submit"] {
+    background: #007bff;
+    color: white;
+    flex: 1;
+}
+
+button[type="submit"]:hover {
+    background: #0062cc;
+}
+
+#btn-limpar {
+    background: #ccc;
+    color: #333;
+    flex: 1;
+}
+
+#btn-limpar:hover {
+    background: #b1b1b1;
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 500px) {
+    .container {
+        padding: 20px;
+    }
 }
