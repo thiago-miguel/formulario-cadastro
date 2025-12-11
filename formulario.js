@@ -217,6 +217,40 @@ function limparErro(campo) {
     }
 }
 
+// Botão cadastrar
+const btnCadastrar = document.querySelector('button[type="submit"]');
+btnCadastrar.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const dados = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        telefone: document.getElementById("telefone").value,
+        idade: document.getElementById("idade").value,
+        dataNascimento: document.getElementById("data-nascimento").value,
+        tamanhoCalcado: document.getElementById("tamanho-calçado").value,
+        comidaFavorita: document.getElementById("comida-favorita").value,
+
+        endereco: {
+            cep: document.getElementById("cep").value,
+            logradouro: document.getElementById("logradouro").value,
+            bairro: document.getElementById("bairro").value,
+            cidade: document.getElementById("cidade").value,
+            estado: document.getElementById("estado").value
+        }
+    };
+
+    const lista = JSON.parse(localStorage.getItem("cadastros")) || [];
+
+    lista.push(dados);
+
+    localStorage.setItem("cadastros", JSON.stringify(lista));
+
+    alert("Cadastro salvo com sucesso!");
+
+    btnLimpar.click();
+});
+
 // Debounce
 function debounce(func, delay = 500) {
     let timer;
